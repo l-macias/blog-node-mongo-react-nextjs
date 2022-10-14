@@ -75,12 +75,25 @@ class authController {
   }
   requireSignin(req, res, next) {
     try {
-      jwt({
-        secret: process.env.JWT_SECRET,
-        algorithms: ["HS256"],
-        userPropery: "auth",
-      });
+      const token = req.headers.cookie
+        ? req.headers.cookie.split("=")[1]
+        : null;
+
+      if (!token) {
+        return res.status(400).json({
+          error: "Acceso denegado",
+        });
+      }
+      const user = jwt.verify(token, process.env.JWT_SECRET);
+      req.user = user;
       next();
+
+      // jwt({
+      //   secret: process.env.JWT_SECRET,
+      //   algorithms: ["HS256"],
+      //   userPropery: "auth",
+      // });
+      // next();
     } catch (error) {
       console.log(`Error en requireSignin: ${error}`);
     }
