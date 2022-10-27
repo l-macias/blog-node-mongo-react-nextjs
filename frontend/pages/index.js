@@ -1,11 +1,10 @@
 import Layout from "../components/Layout";
 import Link from "next/link";
-import Head from "next/head";
 
 const Index = () => {
   return (
     <Layout>
-      <h2>Página de inicio</h2>
+      <h2>Inicio</h2>
       <Link href="/signup">
         <a>Registro</a>
       </Link>

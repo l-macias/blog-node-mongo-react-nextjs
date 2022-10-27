@@ -9,7 +9,7 @@ import blogRoutes from "./routes/blog.js";
 import authRoutes from "./routes/auth.js";
 dotenv.config();
 
-const app = express();
+const app = express().use("*", cors());
 
 //Middlewares
 app.use(morgan("dev"));
@@ -19,6 +19,7 @@ app.use(cookieParser());
 //Routes Middlewares
 app.use("/api", blogRoutes);
 app.use("/api", authRoutes);
+app.use(cors());
 //cors
 if (process.env.NODE_ENV === "development") {
   app.use(cors({ origin: `${process.env.CLIENT_URL}` }));
