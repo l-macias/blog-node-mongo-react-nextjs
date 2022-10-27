@@ -28,11 +28,12 @@ const SigninComponent = () => {
       if (data.error) {
         setValues({ ...values, error: data.error, loading: false });
       } else {
-        // save user token to cookie
-        // save user info to localstorage
-        // authenticate user
         authenticate(data, () => {
-          Router.push(`/`);
+          if (isAuth() && isAuth().role === 1) {
+            Router.push(`/admin`);
+          } else {
+            Router.push(`/user`);
+          }
         });
       }
     });

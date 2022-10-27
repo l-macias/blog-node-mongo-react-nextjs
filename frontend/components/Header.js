@@ -37,22 +37,45 @@ const Header = () => {
               <React.Fragment>
                 <NavItem>
                   <Link href="/signin">
-                    <NavLink>Iniciar Sesión</NavLink>
+                    <NavLink style={{ cursor: "pointer" }}>
+                      Iniciar Sesión
+                    </NavLink>
                   </Link>
                 </NavItem>
                 <NavItem>
                   <Link href="/signup">
-                    <NavLink>Registro</NavLink>
+                    <NavLink style={{ cursor: "pointer" }}>Registro</NavLink>
                   </Link>
                 </NavItem>
               </React.Fragment>
             )}
 
+            {isAuth() && isAuth().role === 0 && (
+              <>
+                <NavItem>
+                  <Link href="/user">
+                    <NavLink style={{ cursor: "pointer" }}>
+                      {`Panel de ${isAuth().name}`}
+                    </NavLink>
+                  </Link>
+                </NavItem>
+              </>
+            )}
+            {isAuth() && isAuth().role === 1 && (
+              <>
+                <NavItem>
+                  <Link href="/admin">
+                    <NavLink style={{ cursor: "pointer" }}>
+                      {`Panel de ${isAuth().name}`}
+                    </NavLink>
+                  </Link>
+                </NavItem>
+              </>
+            )}
             {isAuth() && (
               <NavItem>
                 <NavLink
-                  // style={{ cursor: "pointer" }}
-                  // style={{ cursor: "pointer" }}
+                  style={{ cursor: "pointer" }}
                   onClick={() => signout(() => Router.replace(`/signin`))}
                 >
                   Signout
