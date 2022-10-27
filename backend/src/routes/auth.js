@@ -14,10 +14,10 @@ routerAuth.post("/signup", userSignupValidator, runValidation, signup);
 routerAuth.post("/signin", userSigninValidator, runValidation, signin);
 routerAuth.get("/signout", signout);
 //test
-routerAuth.get("/secret", requireSignin, (req, res) => {
-  res.json({
-    message: "Puedes ingresar a esta ruta",
-  });
-});
+// routerAuth.get("/secret", requireSignin, (req, res) => {
+//   res.json({
+//     user: req.user,
+//   });
+// });
 
 export default routerAuth;

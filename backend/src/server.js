@@ -7,6 +7,7 @@ import mongoose from "mongoose";
 import dotenv from "dotenv";
 import blogRoutes from "./routes/blog.js";
 import authRoutes from "./routes/auth.js";
+import userRoutes from "./routes/user.js";
 dotenv.config();
 
 const app = express().use("*", cors());
@@ -19,6 +20,7 @@ app.use(cookieParser());
 //Routes Middlewares
 app.use("/api", blogRoutes);
 app.use("/api", authRoutes);
+app.use("/api", userRoutes);
 app.use(cors());
 //cors
 if (process.env.NODE_ENV === "development") {

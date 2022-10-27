@@ -2,8 +2,10 @@ import { User } from "../models/user.js";
 import shortId from "shortid";
 import jwt from "jsonwebtoken";
 import expressJwt from "express-jwt";
-class authController {
+
+class AuthController {
   constructor() {}
+
   signup(req, res) {
     try {
       User.findOne({ email: req.body.email }).exec((err, user) => {
@@ -98,10 +100,56 @@ class authController {
       console.log(`Error en requireSignin: ${error}`);
     }
   }
+  authMiddleware(req, res, next) {
+    try {
+      const authUserId = req.user._id;
+      User.findById({ _id: authUserId }).exec((err, user) => {
+        if (err || !user) {
+          return res.status(400).json({
+            error: "Usuario no encontrado",
+          });
+        }
+        req.profile = user;
+        next();
+      });
+    } catch (error) {}
+  }
+
+  adminMiddleware(req, res, next) {
+    try {
+      const adminUserId = req.user._id;
+      User.findById({ _id: adminUserId }).exec((err, user) => {
+        if (err || !user) {
+          return res.status(400).json({
+            error: "Usuario no encontrado",
+          });
+        }
+
+        if (user.role !== 1) {
+          return res.status(400).json({
+            error: "Acceso denegado, no tienes permiso para ver esto.",
+          });
+        }
+        req.profile = user;
+        next();
+      });
+    } catch (error) {}
+  }
 }
 
-const signup = new authController().signup;
-const signin = new authController().signin;
-const signout = new authController().signout;
-const requireSignin = new authController().requireSignin;
-export { signup, signin, signout, requireSignin };
+const signup = new AuthController().signup;
+const signin = new AuthController().signin;
+const signout = new AuthController().signout;
+const requireSignin = new AuthController().requireSignin;
+
+const authMiddleware = new AuthController().authMiddleware;
+const adminMiddleware = new AuthController().adminMiddleware;
+
+export {
+  signup,
+  signin,
+  signout,
+  requireSignin,
+  authMiddleware,
+  adminMiddleware,
+};
