@@ -8,6 +8,6 @@ const Private = ({ children }) => {
       Router.push("/signin");
     }
   }, []);
-  return <React.Fragment>{children}</React.Fragment>;
+  return <>{children}</>;
 };
 export default Private;

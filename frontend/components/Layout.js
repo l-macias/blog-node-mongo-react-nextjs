@@ -6,10 +6,10 @@ const Header = dynamic(() => import("./header"), {
 });
 const Layout = ({ children }) => {
   return (
-    <React.Fragment>
+    <>
       <Header />
       {children}
-    </React.Fragment>
+    </>
   );
 };
 

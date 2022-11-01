@@ -3,6 +3,7 @@ import Link from "next/link";
 import Router from "next/router";
 import { APP_NAME } from "../config";
 import { signout, isAuth } from "../actions/auth";
+import nProgress from "nprogress";
 import {
   Collapse,
   Navbar,
@@ -16,7 +17,11 @@ import {
   DropdownMenu,
   DropdownItem,
 } from "reactstrap";
+import ".././node_modules/nprogress/nprogress.css";
 
+Router.onRouteChangeStart = (url) => nProgress.start();
+Router.onRouteChangeComplete = (url) => nProgress.done();
+Router.onRouteChangeError = (url) => nProgress.done();
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
 
@@ -34,7 +39,7 @@ const Header = () => {
         <Collapse isOpen={isOpen} navbar>
           <Nav className="ms-auto" navbar>
             {!isAuth() && (
-              <React.Fragment>
+              <>
                 <NavItem>
                   <Link href="/signin">
                     <NavLink style={{ cursor: "pointer" }}>
@@ -47,7 +52,7 @@ const Header = () => {
                     <NavLink style={{ cursor: "pointer" }}>Registro</NavLink>
                   </Link>
                 </NavItem>
-              </React.Fragment>
+              </>
             )}
 
             {isAuth() && isAuth().role === 0 && (

@@ -8,6 +8,8 @@ import dotenv from "dotenv";
 import blogRoutes from "./routes/blog.js";
 import authRoutes from "./routes/auth.js";
 import userRoutes from "./routes/user.js";
+import categoryRoutes from "./routes/category.js";
+import tagRoutes from "./routes/tag.js";
 dotenv.config();
 
 const app = express().use("*", cors());
@@ -21,6 +23,8 @@ app.use(cookieParser());
 app.use("/api", blogRoutes);
 app.use("/api", authRoutes);
 app.use("/api", userRoutes);
+app.use("/api", categoryRoutes);
+app.use("/api", tagRoutes);
 app.use(cors());
 //cors
 if (process.env.NODE_ENV === "development") {
