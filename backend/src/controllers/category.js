@@ -55,7 +55,7 @@ class CategoryController {
   remove(req, res) {
     try {
       const slug = req.params.slug.toLowerCase();
-
+      console.log(slug);
       Category.findOneAndRemove({ slug }).exec((err, data) => {
         if (err) {
           return res.status(400).json({

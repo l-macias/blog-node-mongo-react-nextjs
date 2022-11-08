@@ -14,10 +14,11 @@ routerAuth.post("/signup", userSignupValidator, runValidation, signup);
 routerAuth.post("/signin", userSigninValidator, runValidation, signin);
 routerAuth.get("/signout", signout);
 //test
-// routerAuth.get("/secret", requireSignin, (req, res) => {
-//   res.json({
-//     user: req.user,
-//   });
-// });
+routerAuth.get("/secret", requireSignin, (req, res) => {
+  res.json({
+    user: req.user,
+    cookies: req.headers.cookie,
+  });
+});
 
 export default routerAuth;

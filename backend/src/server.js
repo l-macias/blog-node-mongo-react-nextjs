@@ -18,7 +18,7 @@ const app = express().use("*", cors());
 app.use(morgan("dev"));
 app.use(bodyparser.json());
 app.use(cookieParser());
-
+app.use(express.json());
 //Routes Middlewares
 app.use("/api", blogRoutes);
 app.use("/api", authRoutes);

@@ -12,7 +12,7 @@ routerCategory.post(
   categoryCreateValidator,
   runValidation,
   requireSignin,
-  adminMiddleware,
+  adminMiddleware, //quitar este y el problematico para que funcione
   create
 );
 routerCategory.get("/categories", list);

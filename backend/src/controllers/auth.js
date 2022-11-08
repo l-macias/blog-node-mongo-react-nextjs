@@ -1,7 +1,7 @@
 import { User } from "../models/user.js";
 import shortId from "shortid";
 import jwt from "jsonwebtoken";
-import expressJwt from "express-jwt";
+import { expressjwt } from "express-jwt";
 
 class AuthController {
   constructor() {}
@@ -76,32 +76,44 @@ class AuthController {
     }
   }
   requireSignin(req, res, next) {
-    try {
-      const token = req.headers.cookie
-        ? req.headers.cookie.split("=")[1]
-        : null;
+    // try {
+    //   const token = req.headers.cookie
+    //     ? req.headers.cookie.split("=")[1]
+    //     : null;
 
-      if (!token) {
-        return res.status(400).json({
-          error: "Acceso denegado",
-        });
-      }
-      const user = jwt.verify(token, process.env.JWT_SECRET);
-      req.user = user;
-      next();
+    //   if (!token) {
+    //     return res.status(400).json({
+    //       error: "Acceso denegado",
+    //     });
+    //   }
+    //   const user = jwt.verify(token, process.env.JWT_SECRET);
+    //   req.user = user;
+    // next();
 
-      // jwt({
-      //   secret: process.env.JWT_SECRET,
-      //   algorithms: ["HS256"],
-      //   userPropery: "auth",
-      // });
-      // next();
-    } catch (error) {
-      console.log(`Error en requireSignin: ${error}`);
-    }
+    expressjwt({
+      secret: process.env.JWT_SECRET,
+      algorithms: ["HS256"],
+      userProperty: "auth",
+    });
+
+    next();
+    // } catch (error) {
+    //   console.log(`Error en requireSignin: ${error}`);
+    // }
   }
   authMiddleware(req, res, next) {
     try {
+      let token = req.headers.authorization;
+      token = token.replace("Bearer ", "");
+      jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
+        if (err) {
+          console.log(`JWT: ${err.message}`);
+          return res
+            .status(401)
+            .json({ status: false, error: "Token no es válido" });
+        }
+        req.user = decoded;
+      });
       const authUserId = req.user._id;
       User.findById({ _id: authUserId }).exec((err, user) => {
         if (err || !user) {
@@ -116,24 +128,36 @@ class AuthController {
   }
 
   adminMiddleware(req, res, next) {
-    try {
-      const adminUserId = req.user._id;
-      User.findById({ _id: adminUserId }).exec((err, user) => {
-        if (err || !user) {
-          return res.status(400).json({
-            error: "Usuario no encontrado",
-          });
-        }
+    let token = req.headers.authorization;
+    token = token.replace("Bearer ", "");
+    jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
+      if (err) {
+        console.log(`JWT: ${err.message}`);
+        return res
+          .status(401)
+          .json({ status: false, error: "Token no es válido" });
+      }
+      req.user = decoded;
+    });
+    const adminUserId = req.user._id;
 
-        if (user.role !== 1) {
-          return res.status(400).json({
-            error: "Acceso denegado, no tienes permiso para ver esto.",
-          });
-        }
-        req.profile = user;
-        next();
-      });
-    } catch (error) {}
+    User.findById({ _id: adminUserId }).exec((err, user) => {
+      console.log(user);
+      if (err || !user) {
+        return res.status(400).json({
+          error: "Usuario no encontrado",
+        });
+      }
+
+      if (user.role !== 1) {
+        return res.status(400).json({
+          error: "Acceso denegado, no tienes permiso para ver esto.",
+        });
+      }
+      req.profile = user;
+      console.log(req.profile);
+      next();
+    });
   }
 }
 
