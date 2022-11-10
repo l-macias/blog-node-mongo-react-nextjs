@@ -128,8 +128,13 @@ class AuthController {
   }
 
   adminMiddleware(req, res, next) {
-    let token = req.headers.authorization;
-    token = token.replace("Bearer ", "");
+    let token;
+    if (req.headers.authorization != undefined) {
+      token = req.headers.authorization;
+      token = token.replace("Bearer ", "");
+    } else {
+      token = req.cookies.token;
+    }
     jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
       if (err) {
         console.log(`JWT: ${err.message}`);
@@ -142,7 +147,6 @@ class AuthController {
     const adminUserId = req.user._id;
 
     User.findById({ _id: adminUserId }).exec((err, user) => {
-      console.log(user);
       if (err || !user) {
         return res.status(400).json({
           error: "Usuario no encontrado",
@@ -155,7 +159,7 @@ class AuthController {
         });
       }
       req.profile = user;
-      console.log(req.profile);
+
       next();
     });
   }

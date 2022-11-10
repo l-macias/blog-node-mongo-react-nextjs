@@ -1,8 +1,9 @@
 import express from "express";
-import getBlogs from "../controllers/blog.js";
+import create from "../controllers/blog.js";
+import { requireSignin, adminMiddleware } from "../controllers/auth.js";
 
 const routerBlog = express.Router();
 
-routerBlog.get("/blog", getBlogs);
+routerBlog.post("/blog", requireSignin, adminMiddleware, create);
 
 export default routerBlog;
