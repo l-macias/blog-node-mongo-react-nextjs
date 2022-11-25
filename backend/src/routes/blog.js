@@ -19,6 +19,6 @@ routerBlog.post("/blogs-categories-tags", listAllBlogsCategoriesTags);
 routerBlog.get("/blog/:slug", read);
 routerBlog.delete("/blog/:slug", requireSignin, adminMiddleware, remove);
 routerBlog.put("/blog/:slug", requireSignin, adminMiddleware, update);
-routerBlog.get("/blog/photos/:slug", photo);
+routerBlog.get("/blog/photo/:slug", photo);
 
 export default routerBlog;

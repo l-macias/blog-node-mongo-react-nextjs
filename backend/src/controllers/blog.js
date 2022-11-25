@@ -68,7 +68,7 @@ class blogController {
               error: "La imagen debe ser menor a 1MB",
             });
           }
-          blog.photo.data = fs.readFileSync(files.photo.filepath);
+          blog.photo.data = fs.readFileSync(files.photo.filepath, "utf-8");
           blog.photo.contentType = files.photo.type;
         }
         blog.save((err, result) => {
@@ -156,7 +156,7 @@ class blogController {
         .exec((err, data) => {
           if (err) {
             return res.json({
-              error: errorHandler(err),
+              error: err,
             });
           }
           blogs = data; //blogs
@@ -255,7 +255,7 @@ class blogController {
 
           if (body) {
             oldBlog.excerpt = smartTrim(body, 320, " ", " ...");
-            oldBlog.desc = stripHtml(body.substring(0, 160));
+            oldBlog.mdesc = stripHtml(body.substring(0, 160));
           }
 
           if (categories) {
@@ -285,7 +285,7 @@ class blogController {
                 error: "La imagen debe ser menor a 1MB",
               });
             }
-            oldBlog.photo.data = fs.readFileSync(files.photo.filepath);
+            oldBlog.photo.data = fs.readFileSync(files.photo.filepath, "utf-8");
             oldBlog.photo.contentType = files.photo.type;
           }
           oldBlog.save((err, result) => {
@@ -307,7 +307,7 @@ class blogController {
 
   photo(req, res) {
     try {
-      const slug = req.params.slugBlog.toLowerCase();
+      const slug = req.params.slug.toLowerCase();
       Blog.findOne({ slug })
         .select("photo")
         .exec((err, blog) => {

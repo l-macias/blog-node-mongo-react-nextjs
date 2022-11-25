@@ -15,6 +15,11 @@ const blogSchema = new mongoose.Schema(
       trim: true,
       index: true,
     },
+    slug: {
+      type: String,
+      unique: true,
+      index: true,
+    },
     body: {
       type: {},
       required: true,
