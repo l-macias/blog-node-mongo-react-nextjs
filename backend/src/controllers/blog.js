@@ -68,7 +68,7 @@ class blogController {
               error: "La imagen debe ser menor a 1MB",
             });
           }
-          blog.photo.data = fs.readFileSync(files.photo.filepath, "utf-8");
+          blog.photo.data = fs.readFileSync(files.photo.filepath);
           blog.photo.contentType = files.photo.type;
         }
         blog.save((err, result) => {
@@ -285,7 +285,7 @@ class blogController {
                 error: "La imagen debe ser menor a 1MB",
               });
             }
-            oldBlog.photo.data = fs.readFileSync(files.photo.filepath, "utf-8");
+            oldBlog.photo.data = fs.readFileSync(files.photo.filepath);
             oldBlog.photo.contentType = files.photo.type;
           }
           oldBlog.save((err, result) => {

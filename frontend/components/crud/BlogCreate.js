@@ -119,7 +119,7 @@ const CreateBlog = ({ router }) => {
     } else {
       all.splice(clickedCategory, 1);
     }
-    console.log(all);
+
     setCheckedCat(all);
     formData.set("categories", all);
   };
@@ -135,7 +135,7 @@ const CreateBlog = ({ router }) => {
     } else {
       all.splice(clickedTag, 1);
     }
-    console.log(all);
+
     setCheckedTag(all);
     formData.set("tags", all);
   };

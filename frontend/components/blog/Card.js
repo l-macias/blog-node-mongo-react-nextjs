@@ -9,7 +9,7 @@ const Card = ({ blog }) => {
   const showBlogCategories = (blog) => {
     return blog.categories.map((c, i) => (
       <Link key={i} href={`/categories/${c.slug}`}>
-        <a className="btn btn-outline-primary mr-1 ml-1 mt-3">{c.name}</a>
+        <a className="btn btn-primary mx-1 ms-1 mt-3">{c.name}</a>
       </Link>
     ));
   };
@@ -17,7 +17,7 @@ const Card = ({ blog }) => {
   const showBlogTags = (blog) => {
     return blog.tags.map((t, i) => (
       <Link key={i} href={`/tags/${t.slug}`}>
-        <a className="btn btn-outline-primary mr-1 ml-1 mt-3">{t.name}</a>
+        <a className="btn btn-outline-primary mx-1 ms-1 mt-3">{t.name}</a>
       </Link>
     ));
   };
@@ -33,7 +33,7 @@ const Card = ({ blog }) => {
       </header>
 
       <section>
-        <p className="mark ml-1 pt-2 pb-2">
+        <p className="mark mx-1 pt-2 pb-2">
           Escrito por {blog.postedBy.name} | Publicado{" "}
           {moment(blog.updatedAt).fromNow()}
         </p>
@@ -58,9 +58,9 @@ const Card = ({ blog }) => {
             />
           </section>
         </div>
-        <div className="col-md-8">
+        <div className="col-md-8 mh-50">
           <section>
-            <div className="pb-3">{parse(blog.excerpt)}</div>
+            <div className="pb-3 ">{parse(blog.excerpt)}</div>
             <Link href={`/blogs/${blog.slug}`}>
               <a className="btn btn-primary pt-2">Leer Mas</a>
             </Link>
