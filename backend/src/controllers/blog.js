@@ -323,6 +323,30 @@ class blogController {
       console.log(error);
     }
   }
+  listRelated(req, res) {
+    try {
+      let limit = req.body.limit ? parseInt(req.body.limit) : 3;
+
+      const { _id, categories } = req.body.blog;
+
+      Blog.find({ _id: { $ne: _id }, categories: { $in: categories } })
+        .limit(limit)
+
+        .populate("postedBy", "_id name profile")
+        .select("title slug excerpt postedBy createdAt updatedAt")
+        .exec((err, blogs) => {
+          if (err) {
+            return res.status(400).json({
+              error: "No se encuentra el Blog" + err,
+            });
+          }
+
+          res.json(blogs);
+        });
+    } catch (error) {
+      console.log(error);
+    }
+  }
 }
 const create = new blogController().create;
 const listAllBlogsCategoriesTags = new blogController()
@@ -332,6 +356,7 @@ const list = new blogController().list;
 const update = new blogController().update;
 const remove = new blogController().remove;
 const photo = new blogController().photo;
+const listRelated = new blogController().listRelated;
 export {
   create,
   listAllBlogsCategoriesTags,
@@ -340,4 +365,5 @@ export {
   update,
   remove,
   photo,
+  listRelated,
 };
