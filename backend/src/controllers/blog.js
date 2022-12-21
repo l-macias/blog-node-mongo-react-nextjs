@@ -230,20 +230,22 @@ class blogController {
 
   update(req, res) {
     try {
-      const slug = req.params.slug;
+      const slug = req.params.slug.toLowerCase();
+
       Blog.findOne({ slug }).exec((err, oldBlog) => {
         if (err) {
           return res.status(400).json({
             error: errorHandler(err),
           });
         }
+
         let form = new formidable.IncomingForm();
         form.keepExtensions = true;
 
         form.parse(req, (err, fields, files) => {
           if (err) {
             return res.status(400).json({
-              error: "La imagen no pudo ser subida",
+              error: "Image could not upload",
             });
           }
 
@@ -255,7 +257,7 @@ class blogController {
 
           if (body) {
             oldBlog.excerpt = smartTrim(body, 320, " ", " ...");
-            oldBlog.mdesc = stripHtml(body.substring(0, 160));
+            oldBlog.desc = stripHtml(body.substring(0, 160));
           }
 
           if (categories) {
@@ -265,37 +267,24 @@ class blogController {
           if (tags) {
             oldBlog.tags = tags.split(",");
           }
-          let blog = new Blog();
-          blog.title = title;
-          blog.body = body;
-          blog.excerpt = smartTrim(body, 320, " ", " ...");
-          blog.slug = slugify(title).toLowerCase();
-          blog.mtitle = `${title} | ${process.env.APP_NAME}`;
-          blog.mdesc = stripHtml(body.substring(0, 140)).result;
-          blog.postedBy = req.user._id;
-          // blog.categories = categories;
-          // blog.tags = tags;
-
-          let arrayOfCategories = categories && categories.split(",");
-          let arrayOfTags = tags && tags.split(",");
 
           if (files.photo) {
             if (files.photo.size > 10000000) {
               return res.status(400).json({
-                error: "La imagen debe ser menor a 1MB",
+                error: "Image should be less then 1mb in size",
               });
             }
             oldBlog.photo.data = fs.readFileSync(files.photo.filepath);
             oldBlog.photo.contentType = files.photo.type;
           }
+
           oldBlog.save((err, result) => {
             if (err) {
               return res.status(400).json({
                 error: errorHandler(err),
               });
             }
-            // result.photo = undefined
-
+            // result.photo = undefined;
             res.json(result);
           });
         });

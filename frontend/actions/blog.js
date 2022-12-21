@@ -93,7 +93,7 @@ export const removeBlog = async (slug, token) => {
   }
 };
 
-export const udpate = async (blog, token, slug) => {
+export const updateBlog = async (blog, token, slug) => {
   try {
     const response = await fetch(`${API}/blog/${slug}`, {
       method: "PUT",
