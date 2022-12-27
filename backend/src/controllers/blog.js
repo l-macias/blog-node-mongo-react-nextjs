@@ -336,6 +336,34 @@ class blogController {
       console.log(error);
     }
   }
+
+  listSearch(req, res) {
+    try {
+      console.log(req.query);
+      const { search } = req.query;
+
+      if (search) {
+        Blog.find(
+          {
+            $or: [
+              { title: { $regex: search, $options: "i" } },
+              { body: { $regex: search, $options: "i" } },
+            ],
+          },
+          (err, blogs) => {
+            if (err) {
+              return res.status(400).json({
+                error: errorHandler(err),
+              });
+            }
+            res.json(blogs);
+          }
+        ).select("-photo -body");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
 }
 const create = new blogController().create;
 const listAllBlogsCategoriesTags = new blogController()
@@ -346,6 +374,7 @@ const update = new blogController().update;
 const remove = new blogController().remove;
 const photo = new blogController().photo;
 const listRelated = new blogController().listRelated;
+const listSearch = new blogController().listSearch;
 export {
   create,
   listAllBlogsCategoriesTags,
@@ -355,4 +384,5 @@ export {
   remove,
   photo,
   listRelated,
+  listSearch,
 };

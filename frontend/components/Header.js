@@ -18,7 +18,7 @@ import {
   DropdownItem,
 } from "reactstrap";
 import ".././node_modules/nprogress/nprogress.css";
-
+import Search from "./blog/Search";
 Router.onRouteChangeStart = (url) => nProgress.start();
 Router.onRouteChangeComplete = (url) => nProgress.done();
 Router.onRouteChangeError = (url) => nProgress.done();
@@ -30,7 +30,7 @@ const Header = () => {
   };
   const isServer = typeof window !== "undefined";
   return (
-    <div>
+    <>
       {isServer && (
         <Navbar color="light" light expand="md">
           <Link href="/">
@@ -100,7 +100,8 @@ const Header = () => {
           </Collapse>
         </Navbar>
       )}
-    </div>
+      <Search />
+    </>
   );
 };
 

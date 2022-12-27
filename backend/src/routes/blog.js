@@ -11,6 +11,7 @@ import {
   remove,
   photo,
   listRelated,
+  listSearch,
 } from "../controllers/blog.js";
 const routerBlog = express.Router();
 
@@ -22,4 +23,6 @@ routerBlog.delete("/blog/:slug", requireSignin, adminMiddleware, remove);
 routerBlog.put("/blog/:slug", requireSignin, adminMiddleware, update);
 routerBlog.get("/blog/photo/:slug", photo);
 routerBlog.post("/blogs/related", listRelated);
+routerBlog.get("/blogs/search", listSearch);
+
 export default routerBlog;
