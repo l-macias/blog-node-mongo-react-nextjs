@@ -320,8 +320,7 @@ class blogController {
 
       Blog.find({ _id: { $ne: _id }, categories: { $in: categories } })
         .limit(limit)
-
-        .populate("postedBy", "_id name profile")
+        .populate("postedBy", "_id name username profile")
         .select("title slug excerpt postedBy createdAt updatedAt")
         .exec((err, blogs) => {
           if (err) {
@@ -330,7 +329,7 @@ class blogController {
             });
           }
 
-          res.json(blogs);
+          return res.json(blogs);
         });
     } catch (error) {
       console.log(error);

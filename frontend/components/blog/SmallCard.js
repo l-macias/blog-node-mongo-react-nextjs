@@ -33,8 +33,8 @@ const SmallCard = ({ blog }) => {
 
       <div className="card-body">
         Escrito {moment(blog.updatedAt).fromNow()} por{" "}
-        <Link href={"/"}>
-          <a className="float-right">{blog.postedBy.name}</a>
+        <Link href={`/profile/${blog.postedBy.username}`}>
+          <a>{blog.postedBy.username}</a>
         </Link>
       </div>
     </div>
