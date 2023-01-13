@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
-import { signup, isAuth } from "../../actions/auth";
+import { preSignup, signup, isAuth } from "../../actions/auth";
 import Router from "next/router";
-
+import Link from "next/link";
 const SignupComponent = () => {
     const [values, setValues] = useState({
         name: "",
@@ -25,7 +25,7 @@ const SignupComponent = () => {
         setValues({ ...values, loading: true, error: false });
         const user = { name, email, password };
 
-        signup(user).then((data) => {
+        preSignup(user).then((data) => {
             if (data.error) {
                 setValues({ ...values, error: data.error, loading: false });
             } else {
@@ -100,6 +100,12 @@ const SignupComponent = () => {
             {showLoading()}
             {showMessage()}
             {showForm && signupForm()}
+            <br />
+            <Link href="/auth/password/forgot">
+                <a className="btn btn-outline-danger btn-sm">
+                    Olvide mi contraseña
+                </a>
+            </Link>
         </>
     );
 };
