@@ -134,9 +134,14 @@ const SingleBlog = ({ blog, query }) => {
                                     </p>
 
                                     <div className="pb-3">
+                                        <h3>Categorias:</h3>
                                         {showBlogCategories(blog)}
-                                        {showBlogTags(blog)}
+
                                         <br />
+                                        <hr />
+                                        <h3>Tags:</h3>
+                                        {showBlogTags(blog)}
+                                        <hr />
                                         <br />
                                     </div>
                                 </div>
@@ -153,7 +158,7 @@ const SingleBlog = ({ blog, query }) => {
 
                         <div className="container">
                             <h4 className="text-center pt-5 pb-5 h2">
-                                Blogs Relacionados
+                                Artículos Relacionados
                             </h4>
                             <div className="row">{showRelatedBlog()}</div>
                         </div>

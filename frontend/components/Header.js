@@ -19,6 +19,7 @@ import {
 } from "reactstrap";
 import ".././node_modules/nprogress/nprogress.css";
 import Search from "./blog/Search";
+
 Router.onRouteChangeStart = (url) => nProgress.start();
 Router.onRouteChangeComplete = (url) => nProgress.done();
 Router.onRouteChangeError = (url) => nProgress.done();
@@ -45,7 +46,7 @@ const Header = () => {
                                 <NavItem>
                                     <Link href="/blogs">
                                         <NavLink style={{ cursor: "pointer" }}>
-                                            Blogs
+                                            Posts
                                         </NavLink>
                                     </Link>
                                 </NavItem>
@@ -63,12 +64,20 @@ const Header = () => {
                                 <>
                                     <NavItem>
                                         <Link href="/signin">
-                                            <NavLink>Iniciar Sesión</NavLink>
+                                            <NavLink
+                                                style={{ cursor: "pointer" }}
+                                            >
+                                                Iniciar Sesión
+                                            </NavLink>
                                         </Link>
                                     </NavItem>
                                     <NavItem>
                                         <Link href="/signup">
-                                            <NavLink>Registro</NavLink>
+                                            <NavLink
+                                                style={{ cursor: "pointer" }}
+                                            >
+                                                Registro
+                                            </NavLink>
                                         </Link>
                                     </NavItem>
                                 </>
@@ -110,7 +119,7 @@ const Header = () => {
                                             )
                                         }
                                     >
-                                        Signout
+                                        Cerrar Sesión
                                     </NavLink>
                                 </NavItem>
                             )}
