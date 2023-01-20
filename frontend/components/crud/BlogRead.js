@@ -20,6 +20,10 @@ const BlogRead = ({ username }) => {
             if (data.error) {
                 console.log(data.error);
             } else {
+                data.sort((a, b) => {
+                    return new Date(b.updatedAt) - new Date(a.updatedAt);
+                });
+
                 setBlogs(data);
             }
         });

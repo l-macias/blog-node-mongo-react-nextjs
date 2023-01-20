@@ -105,6 +105,25 @@
 
 .bg-footer {
     background: #dd840e;
-    border: 1px solid black;
+
     padding-top: 1em;
+}
+
+.cuadro {
+    border-radius: 10px;
+    background-color: rgba(241, 237, 234, 0.719);
+    border: none;
+    /* max-width: 70em;
+    min-width: 40em; */
+}
+
+.image-featured__post {
+    width: 90%;
+    max-height: 300px;
+    object-fit: fill;
+}
+
+.anchor-clean {
+    text-decoration: none;
+    box-shadow: none;
 }

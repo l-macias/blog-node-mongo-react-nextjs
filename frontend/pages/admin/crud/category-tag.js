@@ -10,7 +10,7 @@ const CategoryTag = () => {
             <Admin>
                 <div className="container-fluid">
                     <div className="row">
-                        <div className="col-md-12 pt-5 pb-5">
+                        <div className="col-md-12 pt-5 pb-4">
                             <h2>Administrar Categorías y Tags</h2>
                         </div>
 

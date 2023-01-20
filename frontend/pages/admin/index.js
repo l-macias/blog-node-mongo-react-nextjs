@@ -17,27 +17,37 @@ const AdminIndex = () => {
                             <ul className="list-group">
                                 <li className="list-group-item">
                                     <Link href="/admin/crud/category-tag">
-                                        <a>Crear Categorías</a>
+                                        <a className="anchor-clean">
+                                            Crear Categorías
+                                        </a>
                                     </Link>
                                 </li>
                                 <li className="list-group-item">
                                     <Link href="/admin/crud/category-tag">
-                                        <a>Crear TAGS</a>
+                                        <a className="anchor-clean">
+                                            Crear TAGS
+                                        </a>
                                     </Link>
                                 </li>
                                 <li className="list-group-item">
                                     <Link href="/admin/crud/blog">
-                                        <a>Crear Post</a>
+                                        <a className="anchor-clean">
+                                            Crear Post
+                                        </a>
                                     </Link>
                                 </li>
                                 <li className="list-group-item">
                                     <Link href="/admin/crud/blogs">
-                                        <a>Actualizar/Eliminar Post</a>
+                                        <a className="anchor-clean">
+                                            Actualizar/Eliminar Post
+                                        </a>
                                     </Link>
                                 </li>
                                 <li className="list-group-item">
                                     <Link href="/user/update">
-                                        <a>Actualizar Perfil</a>
+                                        <a className="anchor-clean">
+                                            Actualizar Perfil
+                                        </a>
                                     </Link>
                                 </li>
                             </ul>

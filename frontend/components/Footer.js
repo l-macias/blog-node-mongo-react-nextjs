@@ -4,14 +4,13 @@ import Link from "next/link";
 const Footer = () => {
     return (
         <>
-            <footer className="text-black py-4 bg-footer">
+            <footer className="text-black py-4 bg-footer mt-3">
                 <div className="container-fluid ">
                     <nav className="row d-flex justify-content-center ">
                         <Link href="/" className="d-flex ">
                             <img
                                 src="/static/images/logo.jpg"
-                                className=" mx-3 mt-2 col-6  col-md-1 mb-2 "
-                                height="80"
+                                className=" mx-3 mt-2 col-3 px-md-5  col-md-2 mb-2 img-fluid "
                                 alt="Logo de AYUDAMeLOCO"
                             />
                         </Link>
@@ -21,17 +20,17 @@ const Footer = () => {
                             </li>
                             <li className="text-center">
                                 <Link href="/categories/soluciones">
-                                    Soluciones
+                                    <a className="anchor-clean"> Soluciones</a>
                                 </Link>
                             </li>
                             <li className="text-center">
                                 <Link href="/categories/negocios">
-                                    Negocios
+                                    <a className="anchor-clean"> Negocios</a>
                                 </Link>
                             </li>
                             <li className="text-center">
                                 <Link href="/categories/tutoriales">
-                                    Tutoriales
+                                    <a className="anchor-clean"> Tutoriales</a>
                                 </Link>
                             </li>
                         </ul>
@@ -41,7 +40,9 @@ const Footer = () => {
                                 Ver artículos
                             </li>
                             <li className="text-center">
-                                <Link href="/blogs">Ver Todos</Link>
+                                <Link href="/blogs">
+                                    <a className="anchor-clean"> Ver Todos</a>
+                                </Link>
                             </li>
                         </ul>
                         <ul className="col-12 col-md-2 list-unstyled">
@@ -49,7 +50,9 @@ const Footer = () => {
                                 Contacto
                             </li>
                             <li className="text-center">
-                                <Link href="/contact">Contacto</Link>
+                                <Link href="/contact">
+                                    <a className="anchor-clean"> Contacto</a>
+                                </Link>
                             </li>
                         </ul>
                         <ul className="col-12 col-md-2 list-unstyled">
@@ -57,10 +60,16 @@ const Footer = () => {
                                 Sesión
                             </li>
                             <li className="text-center">
-                                <Link href="/signin">Iniciar sesión</Link>
+                                <Link href="/signin">
+                                    <a className="anchor-clean">
+                                        Iniciar Sesión
+                                    </a>
+                                </Link>
                             </li>
                             <li className="text-center">
-                                <Link href="/signup">Registro</Link>
+                                <Link href="/signup">
+                                    <a className="anchor-clean">Registro</a>
+                                </Link>
                             </li>
                         </ul>
                     </nav>

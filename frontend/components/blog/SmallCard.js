@@ -1,5 +1,6 @@
 import Link from "next/link";
-import parse from "html-react-parser"; //chequear si funciona y parsea codigo html
+
+import { Parser } from "html-to-react";
 import moment from "moment";
 import "moment/locale/es";
 import { API } from "../../config";
@@ -12,8 +13,8 @@ const SmallCard = ({ blog }) => {
                 <Link href={`/blogs/${blog.slug}`}>
                     <a>
                         <img
-                            className="img img-fluid"
-                            style={{ height: "250px", width: "100%" }}
+                            className="img-fluid"
+                            style={{ maxHeight: "400px", width: "100%" }}
                             src={`${API}/blog/photo/${blog.slug}`}
                             alt={blog.title}
                         />
@@ -23,18 +24,24 @@ const SmallCard = ({ blog }) => {
             <div className="card-body">
                 <section>
                     <Link href={`/blogs/${blog.slug}`}>
-                        <a>
-                            <h5 className="card-title">{blog.title}</h5>
+                        <a className="anchor-clean">
+                            <h5 className="card-title text-center">
+                                {blog.title}
+                            </h5>
+                            <hr />
                         </a>
                     </Link>
-                    <div className="card-text">{parse(blog.excerpt)}</div>
+                    <div className="card-text">
+                        {" "}
+                        {Parser().parse(blog.excerpt)}
+                    </div>
                 </section>
             </div>
 
             <div className="card-body">
                 Escrito {moment(blog.updatedAt).fromNow()} por{" "}
                 <Link href={`/profile/${blog.postedBy.username}`}>
-                    <a>{blog.postedBy.username}</a>
+                    <a className="anchor-clean">{blog.postedBy.username}</a>
                 </Link>
             </div>
         </div>

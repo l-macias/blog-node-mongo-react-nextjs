@@ -3,14 +3,25 @@ import { useState, useEffect } from "react";
 import Router from "next/router";
 import dynamic from "next/dynamic";
 import { withRouter } from "next/router";
+import { API } from "../../config";
 import { getCookie, isAuth } from "../../actions/auth";
 import { getCategories } from "../../actions/category";
 import { getTags } from "../../actions/tags";
 import { singleBlog, updateBlog } from "../../actions/blog";
 import { quillModules, quillFormats } from "../../helpers/quill";
-const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
-import { API } from "../../config";
-
+const ReactQuill = dynamic(
+    async () => {
+        const { default: RQ } = await import("react-quill");
+        const { default: BlotFormatter } = await import("quill-blot-formatter");
+        RQ.Quill.register("modules/blotFormatter", BlotFormatter);
+        return function forwardRef({ forwardedRef, ...props }) {
+            return <RQ ref={forwardedRef} {...props} />;
+        };
+    },
+    {
+        ssr: false,
+    }
+);
 import "../../node_modules/quill/dist/quill.snow.css";
 
 const BlogUpdate = ({ router }) => {
@@ -230,6 +241,22 @@ const BlogUpdate = ({ router }) => {
     };
 
     const updateBlogForm = () => {
+        const [enableEditor, setEnableEditor] = useState(false);
+        const loadQuill = async () => {
+            return new Promise(async (resolve, reject) => {
+                const Quill = require("react-quill").Quill;
+                const BlotFormatter = (await import("quill-blot-formatter"))
+                    .default;
+                resolve({ Quill, BlotFormatter });
+            })
+                .then(({ Quill, BlotFormatter }) => {
+                    Quill.register("modules/blotFormatter", BlotFormatter);
+                    return;
+                })
+                .then((value) => {
+                    setEnableEditor(true);
+                });
+        };
         return (
             <form onSubmit={editBlog}>
                 <div className="form-group">
@@ -252,7 +279,7 @@ const BlogUpdate = ({ router }) => {
                     />
                 </div>
                 <div>
-                    <button type="submit" className="btn btn-primary ">
+                    <button type="submit" className="btn btn-primary mt-2 ">
                         Actualizar
                     </button>
                 </div>

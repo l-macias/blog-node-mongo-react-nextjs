@@ -35,8 +35,11 @@ const Header = () => {
             {isServer && (
                 <Navbar color="light" light expand="md">
                     <Link href="/">
-                        <NavLink className="font-weight-bold">
-                            {APP_NAME}
+                        <NavLink
+                            className="font-weight-bold"
+                            style={{ cursor: "pointer" }}
+                        >
+                            {`${APP_NAME}`}
                         </NavLink>
                     </Link>
                     <NavbarToggler onClick={toggle} />
@@ -47,14 +50,6 @@ const Header = () => {
                                     <Link href="/blogs">
                                         <NavLink style={{ cursor: "pointer" }}>
                                             Posts
-                                        </NavLink>
-                                    </Link>
-                                </NavItem>
-
-                                <NavItem>
-                                    <Link href="/contact">
-                                        <NavLink style={{ cursor: "pointer" }}>
-                                            Contacto
                                         </NavLink>
                                     </Link>
                                 </NavItem>
@@ -124,15 +119,24 @@ const Header = () => {
                                 </NavItem>
                             )}
                             <NavItem>
-                                <Link href="/user/crud/blog">
-                                    <NavLink
-                                        className="btn btn-primary text-light"
-                                        style={{ cursor: "pointer" }}
-                                    >
-                                        Escribir un post
+                                <Link href="/contact">
+                                    <NavLink style={{ cursor: "pointer" }}>
+                                        Contacto
                                     </NavLink>
                                 </Link>
                             </NavItem>
+                            {isAuth() && (
+                                <NavItem>
+                                    <Link href="/user/crud/blog">
+                                        <NavLink
+                                            className="btn btn-primary text-light"
+                                            style={{ cursor: "pointer" }}
+                                        >
+                                            Escribir un post
+                                        </NavLink>
+                                    </Link>
+                                </NavItem>
+                            )}
                         </Nav>
                     </Collapse>
                 </Navbar>

@@ -396,7 +396,9 @@ class blogController {
                         });
                 }
             );
-        } catch (error) {}
+        } catch (error) {
+            console.log(error);
+        }
     }
 }
 const create = new blogController().create;

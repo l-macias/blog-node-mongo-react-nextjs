@@ -18,7 +18,7 @@ const Blogs = ({
     const head = () => {
         return (
             <Head>
-                <title>Blog de Programación | {APP_NAME}</title>
+                <title>{`${APP_NAME}`}</title>
                 <meta
                     name="description"
                     content="Blog de programación de react, node, nextjs"
@@ -76,7 +76,7 @@ const Blogs = ({
             size >= limit && (
                 <button
                     onClick={loadMore}
-                    className="btn btn-outline-primary btn-lg"
+                    className="btn btn-sm btn-outline-primary "
                 >
                     Mostrar mas
                 </button>
@@ -95,7 +95,7 @@ const Blogs = ({
     const showAllTags = () => {
         return tags.map((t, i) => (
             <Link href={`/tags/${t.slug}`} key={i}>
-                <a className="btn btn-outline-primary mx-1 ms-1 mt-3">
+                <a className="btn btn-sm btn-outline-primary mx-1 ms-1 mt-3">
                     {t.name}
                 </a>
             </Link>
@@ -129,7 +129,7 @@ const Blogs = ({
                         <header>
                             <div className="col-md-12 pt-3">
                                 <h1 className="display-4 font-weight-bold text-center">
-                                    Blog de Programación y tutoriales
+                                    {`${APP_NAME}`}
                                 </h1>
                             </div>
                             <section>

@@ -3,6 +3,7 @@ import Link from "next/link";
 import Layout from "../../components/Layout";
 import { useState, useEffect } from "react";
 import parse from "html-react-parser"; //chequear si funciona y parsea codigo html
+import { Parser } from "html-to-react";
 import moment from "moment";
 import "moment/locale/es";
 moment.locale("es");
@@ -31,7 +32,7 @@ const SingleBlog = ({ blog, query }) => {
         return (
             <Head>
                 <title>
-                    {blog.title} | {APP_NAME}
+                    {blog.title} | {`${APP_NAME}`}
                 </title>
                 <meta name="description" content={blog.mdesc} />
                 <link rel="canonical" href={`${DOMAIN}/blogs/${query.slug}`} />
@@ -63,7 +64,9 @@ const SingleBlog = ({ blog, query }) => {
     const showBlogCategories = (blog) => {
         return blog.categories.map((c, i) => (
             <Link key={i} href={`/categories/${c.slug}`}>
-                <a className="btn btn-primary mx-1 ms-1 mt-3">{c.name}</a>
+                <a className="btn btn-primary btn-sm mx-1 ms-1 mt-1">
+                    {c.name}
+                </a>
             </Link>
         ));
     };
@@ -71,7 +74,7 @@ const SingleBlog = ({ blog, query }) => {
     const showBlogTags = (blog) => {
         return blog.tags.map((t, i) => (
             <Link key={i} href={`/tags/${t.slug}`}>
-                <a className="btn btn-outline-primary mx-1 ms-1 mt-3">
+                <a className="btn btn-outline-primary btn-sm mx-1 ms-1 mt-1">
                     {t.name}
                 </a>
             </Link>
@@ -90,7 +93,7 @@ const SingleBlog = ({ blog, query }) => {
         return (
             <div>
                 <DisqusThread
-                    id={blog.id}
+                    id={blog._id}
                     title={blog.title}
                     path={`/blog/${blog.slug}`}
                 />
@@ -106,20 +109,20 @@ const SingleBlog = ({ blog, query }) => {
                         <div className="container-fluid">
                             <section>
                                 <div
-                                    className="row"
+                                    className="row d-flex justify-content-center"
                                     style={{ marginTop: "-30px" }}
                                 >
                                     <img
                                         src={`${API}/blog/photo/${blog.slug}`}
                                         alt={blog.title}
-                                        className="img img-fluid featured-image"
+                                        className="image-featured__post"
                                     />
                                 </div>
                             </section>
 
                             <section>
                                 <div className="container">
-                                    <h1 className="display-2 pb-3 pt-3 text-center font-weight-bold">
+                                    <h1 className="display-2 pb-3 pt-3 text-center font-weight-bold ">
                                         {blog.title}
                                     </h1>
                                     <p className="lead mt-3 mark">
@@ -127,22 +130,24 @@ const SingleBlog = ({ blog, query }) => {
                                         <Link
                                             href={`/profile/${blog.postedBy.username}`}
                                         >
-                                            <a>{blog.postedBy.username}</a>
+                                            <a className="anchor-clean">
+                                                {blog.postedBy.username}
+                                            </a>
                                         </Link>{" "}
                                         |Publicado{" "}
                                         {moment(blog.updatedAt).fromNow()}
                                     </p>
 
-                                    <div className="pb-3">
-                                        <h3>Categorias:</h3>
-                                        {showBlogCategories(blog)}
+                                    <div className=" mt-3 pb-2">
+                                        <h5>
+                                            Categorias:
+                                            {showBlogCategories(blog)}
+                                        </h5>
 
-                                        <br />
                                         <hr />
-                                        <h3>Tags:</h3>
-                                        {showBlogTags(blog)}
+                                        <h5>Tags:{showBlogTags(blog)}</h5>
+
                                         <hr />
-                                        <br />
                                     </div>
                                 </div>
                             </section>
@@ -150,8 +155,8 @@ const SingleBlog = ({ blog, query }) => {
 
                         <div className="container">
                             <section>
-                                <div className="col-md-12 lead">
-                                    {parse(blog.body)}
+                                <div className=" card cuadro p-3">
+                                    {Parser().parse(blog.body)}
                                 </div>
                             </section>
                         </div>

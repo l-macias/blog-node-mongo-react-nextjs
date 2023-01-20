@@ -13,7 +13,7 @@ const UserProfile = ({ user, blogs, query }) => {
         return (
             <Head>
                 <title>
-                    {user.username} | {APP_NAME}
+                    {user.username} | {`${APP_NAME}`}
                 </title>
                 <meta
                     name="description"
